@@ -1,0 +1,10 @@
+{
+  "name": "yabar-js",
+  "vahersion": "0.1.0",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-coffee": "^2.2.0",
+    "gulp-uglifyjs": "^0.5.0"
+  }
+}
