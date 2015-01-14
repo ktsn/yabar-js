@@ -1,9 +1,13 @@
 class YB.Bar
+
   constructor: (ctx, vertical = false) ->
     @_hotSpots = []
     @_ctx = ctx
     @_vertical = vertical
 
+  # グラデーションを追加
+  # offset {number} [0-1]: グラデーションの中心点．0-1 座標
+  # degree {number} [0-1]: グラデーションの強さ．バーの長さ依存
   addHotSpot: (offset, degree, color) ->
     hotSpot =
       offset: offset

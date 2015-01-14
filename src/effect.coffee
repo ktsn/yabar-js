@@ -1,6 +1,9 @@
 class YB.Effect
   EFFECT_WIDTH = 100
 
+  # ctx {CanvasRenderingContext2D}: エフェクトを描画する Canvas コンテキスト
+  # [vertical] {boolean}: エフェクトの方向が縦かどうか
+  # [preprocessor] {function}: エフェクトの描画の前に行う処理
   constructor: (ctx, vertical, preprocessor) ->
     @_ctx = ctx
     @_vertical = false
@@ -13,9 +16,13 @@ class YB.Effect
     if typeof preprocessor == 'function'
       @setPreprocessor preprocessor
 
+  # エフェクトを描画する前に行う処理をセット
+  # preprocessor {function}
   setPreprocessor: (preprocessor) ->
     @_preprocessor = preprocessor
 
+  # Canvas 上にエフェクトを描画
+  # durationRate {number} [0-1]: エフェクトのアニメーションの進行率
   render: (durationRate) ->
     @_preprocessor @_ctx
 
