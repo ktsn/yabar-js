@@ -1,0 +1,26 @@
+.yb-task {
+  display: table-row;
+}
+
+.yb-task > * {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.yb-task-yabasa {
+  background-color: #333;
+  border-radius: 3px;
+  color: #fff;
+  padding: 0 10px;
+}
+
+.yb-task-bar {
+  position: relative;
+}
+
+.yb-task-bar .yb-task-bar-gradient,
+.yb-task-bar .yb-task-bar-effect {
+  left: 0;
+  position: absolute;
+  top: 0;
+}

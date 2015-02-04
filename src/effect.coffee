@@ -16,6 +16,10 @@ class YB.Effect
     if typeof preprocessor == 'function'
       @setPreprocessor preprocessor
 
+  setSize: (width, height) ->
+    @_ctx.canvas.width = width
+    @_ctx.canvas.height = height
+
   # エフェクトを描画する前に行う処理をセット
   # preprocessor {function}
   setPreprocessor: (preprocessor) ->
