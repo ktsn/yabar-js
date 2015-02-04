@@ -1,7 +1,7 @@
 class YB.TaskView
-  TODO_HOT_SPOT_DEGREE = 2
-  DEADLINE_HOT_SPOT_DEGREE = 7
-  HOT_SPOT_COLOR = 'rgba(255, 0, 0, 0.7)'
+  TODO_DEGREE_SEED = 0.5
+  DEADLINE_DEGREE_SEED = 2
+  HOT_SPOT_COLOR = 'rgba(0, 92, 255, 0.5)'
   _substituteDate = (a, b) ->
     return ~~((a.getTime() - b.getTime()) / 86400000) # 24 * 60 * 60 * 1000
 
@@ -13,7 +13,7 @@ class YB.TaskView
     @element.querySelector('.yb-task-yabasa').textContent = @task.yabasa
 
     deadlineOffset = (_substituteDate(new Date(@task.deadline), @startDate) + 1) / @rangeDate
-    @barGradient.addHotSpot deadlineOffset, DEADLINE_HOT_SPOT_DEGREE / @rangeDate, HOT_SPOT_COLOR, true
+    @barGradient.addHotSpot deadlineOffset, @_calcDeadlineDegree(@task), HOT_SPOT_COLOR, true
 
   setBarSize: (width, height) ->
     barWrapper = @element.querySelector '.yb-task-bar'
@@ -25,4 +25,8 @@ class YB.TaskView
 
   addTodo: (todoDate) ->
     todoOffset = (_substituteDate(todoDate, @startDate) + 1) / @rangeDate
-    @barGradient.addHotSpot todoOffset, TODO_HOT_SPOT_DEGREE / @rangeDate, HOT_SPOT_COLOR
+    @barGradient.addHotSpot todoOffset, @_calcTodoDegree(@task), HOT_SPOT_COLOR
+
+  _calcTodoDegree: (task) -> parseInt(task.yabasa) * TODO_DEGREE_SEED / @rangeDate
+
+  _calcDeadlineDegree: (task) -> parseInt(task.yabasa) * DEADLINE_DEGREE_SEED / @rangeDate
