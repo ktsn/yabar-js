@@ -1,7 +1,7 @@
 class YB.TaskView
   TODO_DEGREE_SEED = 0.5
 
-  HOT_SPOT_COLOR = 'rgba(0, 92, 255, 0.5)'
+  HOT_SPOT_COLOR = 'rgba(0, 150, 188, 0.8)'
   _substituteDate = (a, b) ->
     return ~~((a.getTime() - b.getTime()) / 86400000) # 24 * 60 * 60 * 1000
 
@@ -10,7 +10,6 @@ class YB.TaskView
     @barEffect = new YB.Effect @element.querySelector('.yb-task-bar-effect').getContext('2d')
 
     @element.querySelector('.yb-task-name').textContent = @task.name
-    @element.querySelector('.yb-task-yabasa').textContent = @task.yabasa
 
     deadlineOffset = (_substituteDate(new Date(@task.deadline), @startDate) + 1) / @rangeDate
     @barGradient.addHotSpot deadlineOffset, @task.duration / @rangeDate, HOT_SPOT_COLOR, true
