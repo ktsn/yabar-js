@@ -6,18 +6,18 @@ class YB.TaskView
     return ~~((a.getTime() - b.getTime()) / 86400000) # 24 * 60 * 60 * 1000
 
   constructor: (@element, @task, @startDate, @rangeDate) ->
-    @barGradient = new YB.Bar @element.querySelector('.yb-task-bar-gradient').getContext('2d')
-    @barEffect = new YB.Effect @element.querySelector('.yb-task-bar-effect').getContext('2d')
+    @barGradient = new YB.Bar @element.find('.yb-task-bar-gradient')[0].getContext('2d')
+    @barEffect = new YB.Effect @element.find('.yb-task-bar-effect')[0].getContext('2d')
 
-    @element.querySelector('.yb-task-name').textContent = @task.name
+    @element.find('.yb-task-name').text(@task.name)
 
     deadlineOffset = (_substituteDate(new Date(@task.deadline), @startDate) + 1) / @rangeDate
     @barGradient.addHotSpot deadlineOffset, @task.duration / @rangeDate, HOT_SPOT_COLOR, true
 
   setBarSize: (width, height) ->
-    barWrapper = @element.querySelector '.yb-task-bar'
-    barWrapper.style.width = width + 'px';
-    barWrapper.style.height = height + 'px';
+    barWrapper = @element.find '.yb-task-bar'
+    barWrapper.width(width);
+    barWrapper.height(height);
 
     @barGradient.setSize width, height
     @barEffect.setSize width, height

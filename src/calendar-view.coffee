@@ -45,7 +45,7 @@ class YB.CalendarView
     dateTable.append cells
 
   createTaskView: (task) ->
-    taskView = new YB.TaskView @taskTemplate.clone()[0], task, @startDate, @range + 1 # +1 to calculate tail space
+    taskView = new YB.TaskView @taskTemplate.clone(), task, @startDate, @range + 1 # +1 to calculate tail space
     taskView.setBarSize barWidth, barHeight
 
     @taskViews[task.id] = taskView
@@ -57,7 +57,7 @@ class YB.CalendarView
 
   removeTaskView: (taskId) ->
     taskView = @taskViews[taskId]
-    taskView.element.parentNode.removeChild taskView.element
+    taskView.element.remove()
     @taskViews[taskId] = null
 
   _createDateCell: (date) -> @dateTemplate.clone()
