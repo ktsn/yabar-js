@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var coffee = require('gulp-coffee');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglifyjs');
+var watch = require('gulp-watch');
 
 gulp.task('clean', function(cb) {
   del(['build'], cb);
@@ -24,6 +25,12 @@ gulp.task('coffee', ['clean'], function() {
   return gulp.src(['src/**/*.coffee'])
     .pipe(coffee().on('error', function(err) { throw err }))
     .pipe(gulp.dest('build/js/'));
+});
+
+gulp.task('watch', function() {
+  watch(['src/**/*.coffee', 'sass/**/*.sass'], function() {
+    gulp.start('build');
+  });
 });
 
 gulp.task('build', ['sass', 'coffee']);
