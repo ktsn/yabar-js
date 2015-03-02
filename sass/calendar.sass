@@ -152,13 +152,21 @@ $task-height: 42px
   &:last-child
     visibility: hidden /* for tail space */
 
-.yb-calendar-today
-  border-bottom: 2px solid #ff0000
+  &.yb-calendar-today
+    top: 1px
+
+    .yb-calendar-date
+      border-bottom: 3px solid #ff0000
+
+.yb-calendar-date-cell-inner
+  left: 50%
+  position: relative
+  text-align: center
+  width: 100%
 
 .yb-calendar-day
   display: inline-block
   font-size: 12px
-  width: 100%
 
 .yb-calendar-date
   display: inline-block

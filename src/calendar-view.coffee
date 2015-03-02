@@ -2,6 +2,9 @@ class YB.CalendarView
   barWidth = 780
   barHeight = 24
 
+  _equalsDate = (a, b) ->
+    return a.setHours(0, 0, 0, 0) == b.setHours(0, 0, 0, 0)
+
   constructor: () ->
     @taskViews = {}
 
@@ -32,6 +35,8 @@ class YB.CalendarView
         cells = cells.add @_createDateCell()
 
       @_updateDateCell $(cells[i]), date
+      $(cells[i]).addClass('yb-calendar-today') if _equalsDate date, new Date()
+
       date.setDate (date.getDate() + 1)
 
     for i in [0..cells.length - @range + 1]
@@ -60,6 +65,8 @@ class YB.CalendarView
   _updateDateCell: (cell, date) ->
     cell.find('.yb-calendar-day').text @_translateDay(date.getDay())
     cell.find('.yb-calendar-date').text date.getDate()
+
+
 
   _translateDay: (day) ->
     dictionary = {
