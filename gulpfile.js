@@ -46,7 +46,7 @@ gulp.task('template', ['coffee-copy'], function() {
 });
 
 gulp.task('watch', function() {
-  watch(['src/**/*.coffee', 'sass/**/*.sass'], function() {
+  watch(['src/**/*.coffee', 'sass/**/*.sass', 'templates/**/*.html'], function() {
     gulp.start('build');
   });
 });
