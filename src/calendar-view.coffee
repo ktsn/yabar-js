@@ -36,7 +36,7 @@ class YB.CalendarView
       if !cells[i]
         cells = cells.add @_createDateCell()
 
-      @_updateDateCell $(cells[i]), date
+      @_updateDateCell $(cells[i]), date, i
       $(cells[i]).addClass('yb-calendar-today') if _equalsDate date, new Date()
 
       date.setDate (date.getDate() + 1)
@@ -65,9 +65,14 @@ class YB.CalendarView
 
   _createDateCell: (date) -> @dateTemplate.clone()
 
-  _updateDateCell: (cell, date) ->
+  _updateDateCell: (cell, date, i) ->
     cell.find('.yb-calendar-day').text @_translateDay(date.getDay())
-    cell.find('.yb-calendar-date').text date.getDate()
+
+    d = date.getDate()
+    # show the month if the date is the first date of the month
+    if d == 1 && i > 0
+      d = [date.getMonth() + 1, d].join('.')
+    cell.find('.yb-calendar-date').text d
 
   _translateDay: (day) ->
     dictionary = {
