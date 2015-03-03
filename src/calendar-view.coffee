@@ -39,6 +39,7 @@ class YB.CalendarView
 
       date.setDate (date.getDate() + 1)
 
+    # remove wasted cells
     for i in [0..cells.length - @range + 1]
       $(cells[i]).remove()
 
@@ -65,8 +66,6 @@ class YB.CalendarView
   _updateDateCell: (cell, date) ->
     cell.find('.yb-calendar-day').text @_translateDay(date.getDay())
     cell.find('.yb-calendar-date').text date.getDate()
-
-
 
   _translateDay: (day) ->
     dictionary = {
