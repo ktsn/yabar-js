@@ -5,7 +5,7 @@ class YB.CalendarView
   _equalsDate = (a, b) ->
     return a.setHours(0, 0, 0, 0) == b.setHours(0, 0, 0, 0)
 
-  constructor: () ->
+  constructor: (startDate, range) ->
     @taskViews = {}
 
     @taskTemplate = $(YB.Templates.task)
@@ -16,6 +16,8 @@ class YB.CalendarView
 
     @effectDispatcher = new YB.EffectDispatcher()
     @effectDispatcher.start(0.5)
+
+    @setDateScope startDate, range
 
   setDateScope: (@startDate, @range) ->
     Object.keys(@taskViews).forEach(@removeTaskView.bind(@))
