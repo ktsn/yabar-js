@@ -5,6 +5,7 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglifyjs');
 var inject = require('gulp-inject');
 var watch = require('gulp-watch');
+var gutil = require('gulp-util');
 
 gulp.task('clean', function(cb) {
   del(['build'], cb);
@@ -19,12 +20,14 @@ gulp.task('compress', ['build'], function() {
 gulp.task('sass', ['clean'], function() {
   return gulp.src(['sass/**/*.sass'])
     .pipe(sass({ indentedSyntax: true }))
+    .on('error', gutil.log)
     .pipe(gulp.dest('build/css/'));
 });
 
 gulp.task('coffee', ['template'], function() {
   return gulp.src(['build/coffee/yabar.coffee', 'build/coffee/**/*.coffee'])
-    .pipe(coffee().on('error', function(err) { throw err }))
+    .pipe(coffee())
+    .on('error', gutil.log)
     .pipe(gulp.dest('build/js/'));
 });
 
