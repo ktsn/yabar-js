@@ -1,0 +1,231 @@
+$calendar-border: 1px solid #aaa
+$sidebar-width: 200px
+$body-width: 780px
+$base-color: #0096bc
+$body-color: #fff
+
+$task-height: 42px
+
+/* ==========================================
+ *  Calendar
+ * ========================================== */
+
+.yb-calendar
+  position: relative
+  width: $sidebar-width + $body-width
+
+  *
+    box-sizing: border-box
+
+.yb-calendar-header,
+.yb-calendar-task-list,
+.yb-calendar-routine-list
+  position: relative
+
+/*  Calendar Background
+ * ========================================== */
+
+.yb-calendar-background
+  bottom: 0
+  left: 0
+  position: absolute
+  right: 0
+  top: 0
+
+.yb-calendar-background-sidebar
+  background-color: $base-color
+  bottom: 0
+  left: 0
+  position: absolute
+  top: 0
+  width: $sidebar-width
+
+.yb-calendar-background-body
+  background-color: $body-color
+  bottom: 0
+  left: $sidebar-width
+  position: absolute
+  top: 0
+  width: $body-width
+
+/*  Calendar Layout
+ * ========================================== */
+
+.yb-calendar-row
+  display: table-row
+
+.yb-calendar-sidebar
+  color: #fff
+  display: table-cell
+  padding-left: 10px
+  padding-right: 10px
+  vertical-align: middle
+  width: $sidebar-width
+
+.yb-calendar-body
+  display: table-cell
+  position: relative
+  vertical-align: middle
+  width: $body-width
+
+/*  Calendar Header
+ * ========================================== */
+
+.yb-calendar-header
+  border-bottom: $calendar-border
+  border-top: $calendar-border
+
+  .yb-calendar-sidebar,
+  .yb-calendar-body
+    background-color: $body-color
+    color: $base-color
+
+/*  Calendar Date
+ * ========================================== */
+
+.yb-calendar-year,
+.yb-calendar-month-wrapper
+  display: inline-block
+  vertical-align: middle
+
+.yb-calendar-year
+  padding-left: 30px
+
+.yb-calendar-month-wrapper
+  padding-left: 15px
+  padding-right: 15px
+
+.yb-calendar-month-wrapper
+  padding-bottom: 6px
+  padding-top: 6px
+  position: relative
+  text-align: center
+
+.yb-calendar-month
+  font-size: 28px
+  font-style: italic
+
+.yb-calendar-month-prev,
+.yb-calendar-month-next
+  background: none
+  border-width: 0
+  color: $base-color
+  cursor: pointer
+  display: block
+  height: 50%
+  font-size: 10px
+  left: 0
+  padding: 0
+  position: absolute
+  width: 100%
+
+  &::before
+    position: absolute
+
+.yb-calendar-month-prev
+  top: 0
+
+  &::before
+    content: "\25b2"
+    top: 0
+
+.yb-calendar-month-next
+  bottom: 0
+
+  &::before
+    content: "\25bc"
+    bottom: 0
+
+.yb-calendar-date-table
+  color: $base-color
+  display: table
+  font-size: 18px
+  table-layout: fixed
+  width: 100%
+
+.yb-calendar-date-cell
+  display: table-cell
+  padding: 0 5px
+  position: relative
+  text-align: right
+
+  &:last-child
+    visibility: hidden /* for tail space */
+
+  &.yb-calendar-today
+    top: 1px
+
+    .yb-calendar-date
+      border-bottom: 3px solid #ff0000
+
+.yb-calendar-date-cell-inner
+  left: 50%
+  position: relative
+  text-align: center
+  width: 100%
+
+.yb-calendar-day
+  display: inline-block
+  font-size: 12px
+
+.yb-calendar-date
+  display: inline-block
+  font-style: italic
+  padding-left: 5px /* to expand the line that indicates today */
+  padding-right: 5px
+
+/*  Calendar Nav
+ * ========================================== */
+
+.yb-calendar-nav
+  position: absolute
+  font-size: 0 /* avoid invisible margin */
+  right: 5px
+  top: 3px
+
+  button
+    background: none
+    border-width: 0
+    color: $base-color
+    cursor: pointer
+    font-size: 12px
+
+/*  Calendar Others
+ * ========================================== */
+
+.yb-calendar-splitter
+  display: table
+  height: 100%
+  table-layout: fixed
+  width: 100%
+
+.yb-calendar-splitter-item
+  border-right: 1px solid #ccc
+  display: table-cell
+
+  &:last-child
+    border-right-width: 0
+
+.yb-calendar-task-list
+  padding-bottom: 20px
+  padding-top: 20px
+
+/* ==========================================
+ *  Task
+ * ========================================== */
+
+.yb-task
+  height: $task-height
+
+.yb-task-bar
+  bottom: 0
+  left: 0
+  position: absolute
+  right: 0
+  top: 0
+
+.yb-task-bar .yb-task-bar-gradient,
+.yb-task-bar .yb-task-bar-effect
+  left: 0
+  position: absolute
+  top: 9px
