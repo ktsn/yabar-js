@@ -194,15 +194,17 @@ $task-height: 42px
  * ========================================== */
 
 .yb-calendar-splitter
-  bottom: 0
   display: table
-  left: 0
-  position: absolute
-  right: 0
-  top: 0
+  height: 100%
+  table-layout: fixed
+  width: 100%
 
 .yb-calendar-splitter-item
+  border-right: 1px solid #ccc
   display: table-cell
+
+  &:last-child
+    border-right-width: 0
 
 .yb-calendar-task-list
   padding-bottom: 20px

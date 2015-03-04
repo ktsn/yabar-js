@@ -26,26 +26,35 @@ class YB.CalendarView
     dateTable = @element.find '.yb-calendar-date-table'
     cells = dateTable.children().remove()
 
+    splitterTable = @element.find '.yb-calendar-splitter'
+    splitters = splitterTable.children().remove()
+
     # update year and month
     @element.find('.yb-calendar-year').text(date.getFullYear())
     @element.find('.yb-calendar-month').text(date.getMonth() + 1)
 
     # update the view that shows date
     # append an additional cell to have the tail space
+    # also add splitters for each date
     for i in [0..@range]
       if !cells[i]
         cells = cells.add @_createDateCell()
+
+      if !splitters[i]
+        splitters = splitters.add @_createSplitter()
 
       @_updateDateCell $(cells[i]), date, i
       $(cells[i]).addClass('yb-calendar-today') if _equalsDate date, new Date()
 
       date.setDate (date.getDate() + 1)
 
-    # remove wasted cells
+    # remove wasted cells and splitters
     for i in [0..cells.length - @range + 1]
       $(cells[i]).remove()
+      $(splitters[i]).remove()
 
     dateTable.append cells
+    splitterTable.append splitters
 
   createTaskView: (task) ->
     taskView = new YB.TaskView @taskTemplate.clone(), task, @startDate, @range + 1 # +1 to calculate tail space
@@ -63,7 +72,7 @@ class YB.CalendarView
     taskView.element.remove()
     @taskViews[taskId] = null
 
-  _createDateCell: (date) -> @dateTemplate.clone()
+  _createDateCell: () -> @dateTemplate.clone()
 
   _updateDateCell: (cell, date, i) ->
     cell.find('.yb-calendar-day').text @_translateDay(date.getDay())
@@ -73,6 +82,8 @@ class YB.CalendarView
     if d == 1 && i > 0
       d = [date.getMonth() + 1, d].join('.')
     cell.find('.yb-calendar-date').text d
+
+  _createSplitter: () -> $('<div class="yb-calendar-splitter-item"></div>')
 
   _translateDay: (day) ->
     dictionary = {
