@@ -44,7 +44,10 @@ class YB.CalendarView
         splitters = splitters.add @_createSplitter()
 
       @_updateDateCell $(cells[i]), date, i
-      $(cells[i]).addClass('yb-calendar-today') if _equalsDate date, new Date()
+      if _equalsDate date, new Date()
+        $(cells[i]).addClass('yb-calendar-today')
+      else
+        $(cells[i]).removeClass('yb-calendar-today')
 
       date.setDate (date.getDate() + 1)
 
