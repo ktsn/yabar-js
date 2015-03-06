@@ -37,10 +37,10 @@ class YB.CalendarView
     # append an additional cell to have the tail space
     # also add splitters for each date
     for i in [0..@range]
-      if !cells[i]
+      if !cells[i]?
         cells = cells.add @_createDateCell()
 
-      if !splitters[i]
+      if !splitters[i]?
         splitters = splitters.add @_createSplitter()
 
       @_updateDateCell $(cells[i]), date, i
