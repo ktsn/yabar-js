@@ -70,7 +70,7 @@ class YB.CalendarView
   removeTaskView: (taskId) ->
     taskView = @taskViews[taskId]
     taskView.element.remove()
-    @taskViews[taskId] = null
+    delete @taskViews[taskId]
 
   _createDateCell: () -> @dateTemplate.clone()
 
