@@ -1,4 +1,4 @@
-class YB.CalendarView
+class YB.CalendarView extends YB.Observable
   barWidth = 780
   barHeight = 24
 
@@ -6,6 +6,8 @@ class YB.CalendarView
     return a.setHours(0, 0, 0, 0) == b.setHours(0, 0, 0, 0)
 
   constructor: (startDate, range) ->
+    super()
+
     @taskViews = {}
 
     @taskTemplate = $(YB.Templates.task)
@@ -16,6 +18,8 @@ class YB.CalendarView
 
     @effectDispatcher = new YB.EffectDispatcher()
     @effectDispatcher.start(0.5)
+
+    @_setEventListener()
 
     @setDateScope startDate, range
 
@@ -37,14 +41,17 @@ class YB.CalendarView
     # append an additional cell to have the tail space
     # also add splitters for each date
     for i in [0..@range]
-      if !cells[i]
+      if !cells[i]?
         cells = cells.add @_createDateCell()
 
-      if !splitters[i]
+      if !splitters[i]?
         splitters = splitters.add @_createSplitter()
 
       @_updateDateCell $(cells[i]), date, i
-      $(cells[i]).addClass('yb-calendar-today') if _equalsDate date, new Date()
+      if _equalsDate date, new Date()
+        $(cells[i]).addClass('yb-calendar-today')
+      else
+        $(cells[i]).removeClass('yb-calendar-today')
 
       date.setDate (date.getDate() + 1)
 
@@ -55,6 +62,8 @@ class YB.CalendarView
 
     dateTable.append cells
     splitterTable.append splitters
+
+    @fire 'scopechanged', @
 
   createTaskView: (task) ->
     taskView = new YB.TaskView @taskTemplate.clone(), task, @startDate, @range + 1 # +1 to calculate tail space
@@ -70,7 +79,7 @@ class YB.CalendarView
   removeTaskView: (taskId) ->
     taskView = @taskViews[taskId]
     taskView.element.remove()
-    @taskViews[taskId] = null
+    delete @taskViews[taskId]
 
   _createDateCell: () -> @dateTemplate.clone()
 
@@ -96,3 +105,14 @@ class YB.CalendarView
       6: 'SAT'
     };
     return dictionary[day]
+
+  _setEventListener: () ->
+    @element.on 'click', '.yb-calendar-month-prev', (event) =>
+      prevStartDate = new Date @startDate.getTime()
+      prevStartDate.setDate (@startDate.getDate() - @range)
+      @setDateScope prevStartDate, @range
+
+    @element.on 'click', '.yb-calendar-month-next', (event) =>
+      nextStartDate = new Date @startDate.getTime()
+      nextStartDate.setDate (@startDate.getDate() + @range)
+      @setDateScope nextStartDate, @range
