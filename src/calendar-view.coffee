@@ -1,4 +1,4 @@
-class YB.CalendarView
+class YB.CalendarView extends YB.Observable
   barWidth = 780
   barHeight = 24
 
@@ -6,6 +6,8 @@ class YB.CalendarView
     return a.setHours(0, 0, 0, 0) == b.setHours(0, 0, 0, 0)
 
   constructor: (startDate, range) ->
+    super()
+
     @taskViews = {}
 
     @taskTemplate = $(YB.Templates.task)
@@ -16,6 +18,8 @@ class YB.CalendarView
 
     @effectDispatcher = new YB.EffectDispatcher()
     @effectDispatcher.start(0.5)
+
+    @_setEventListener()
 
     @setDateScope startDate, range
 
@@ -59,6 +63,8 @@ class YB.CalendarView
     dateTable.append cells
     splitterTable.append splitters
 
+    @fire 'scopechanged', @
+
   createTaskView: (task) ->
     taskView = new YB.TaskView @taskTemplate.clone(), task, @startDate, @range + 1 # +1 to calculate tail space
     taskView.setBarSize barWidth, barHeight
@@ -99,3 +105,14 @@ class YB.CalendarView
       6: 'SAT'
     };
     return dictionary[day]
+
+  _setEventListener: () ->
+    @element.on 'click', '.yb-calendar-month-prev', (event) =>
+      prevStartDate = new Date @startDate.getTime()
+      prevStartDate.setDate (@startDate.getDate() - @range)
+      @setDateScope prevStartDate, @range
+
+    @element.on 'click', '.yb-calendar-month-next', (event) =>
+      nextStartDate = new Date @startDate.getTime()
+      nextStartDate.setDate (@startDate.getDate() + @range)
+      @setDateScope nextStartDate, @range
